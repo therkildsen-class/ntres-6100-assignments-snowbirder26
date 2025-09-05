@@ -51,7 +51,7 @@ This exercise explores a dataset containing the human development index
 (`HDI`) and corruption perception index (`CPI`) of 173 countries across
 6 different regions around the world: Americas, Asia Pacific, Eastern
 Europe and Central Asia (`East EU Cemt`), Western Europe
-(`EU W. Wurope`), Middle East and North Africa (`MENA`), and Sub-Saharan
+(`EU W. Europe`), Middle East and North Africa (`MENA`), and Sub-Saharan
 Africa (`SSA`). (Note: the larger `CPI` is, the less corrupted the
 country is perceived to be.)
 
