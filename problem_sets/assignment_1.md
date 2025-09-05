@@ -184,6 +184,8 @@ Have a look at the data structure
 ## Write your code here
 ```
 
+<br>
+
 For the following exercise, **transform the data as instructed.** Try to
 use `tidyverse` functions even if you are more comfortable with base-R
 solutions. Show the **first 6 lines** of the transformed data in a table
