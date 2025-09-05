@@ -215,3 +215,23 @@ Show data for the 6 subjects with the smallest sum of `Dose` as below. **Do not 
 ## Exercise 3. Unemployment in the US 1967-2015 (OPTIONAL)
 
 This exercise uses the dataset `economics` from the ggplot2 package. It was produced from US economic time series data available from <http://research.stlouisfed.org/fred2>. It describes the number of unemployed persons (`unemploy`), among other variables, in the US from 1967 to 2015.
+
+```{r}
+head(economics) %>% kable()
+```
+
+<br>
+
+#### 3.1 Plot the trend in number of unemployed persons (`unemploy`) through time using the economics dataset shown above. And for this question only, hide your code and only show the plot.
+
+```{r}
+## Write your code here
+```
+
+<br>
+
+#### 3.2 Edit the plot title and axis labels of the previous plot appropriately. Make y axis start from 0. Change the background theme to what is shown below. (Hint: search for help online if needed)
+
+```{r}
+## Write your code here
+```
