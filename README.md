@@ -20,3 +20,6 @@ Assignment#  |  Fully completed |  Partially completed  | Not completed |
 7  |    |    |    |  
 8  |    |    |    |  
 9  |    |    |    |  
+
+# Assignment 2  ->  Project repository url
+<https://github.com/snowbirder26/yrwa-project.git>
