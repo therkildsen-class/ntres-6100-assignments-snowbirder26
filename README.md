@@ -24,4 +24,4 @@ Assignment#  |  Fully completed |  Partially completed  | Not completed |
 <br>
 
 # Assignment 2  ->  Project repository url
-<https://github.com/snowbirder26/yrwa-project.git>
+Assignment 2:  <https://github.com/snowbirder26/yrwa-project.git>
