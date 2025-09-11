@@ -1,0 +1,24 @@
+---
+title: "ggplot_intro"
+format: html
+editor: visual
+---
+
+<br>
+
+## Code chunk to load packages
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+<br>
+
+## Trying to use View function (does not work in Quarto)
+
+```{r}
+View(mpg)
+```
+
+<br>
