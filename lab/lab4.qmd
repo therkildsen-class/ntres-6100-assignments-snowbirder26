@@ -1,5 +1,151 @@
 ---
-title: "lab4"
+title: "Lab 4"
+author: "Hannah Pryor"
 format: gfm
 ---
 
+<br>
+
+## Setup
+
+```{r, output=FALSE}
+
+# load packages
+library(tidyverse)
+library(dslabs)
+```
+
+<br>
+
+<br>
+
+## Look at gapminder data
+
+See the first 5 lines of the dataset
+
+```{r echo=FALSE}
+
+# look at first 5 lines of dataset
+gapminder %>% as_tibble() %>% 
+  head(5)
+```
+
+<br>
+
+Read the column names in the dataset
+
+```{r, echo=FALSE}
+
+# see column names (using tidyverse format for practice)
+gapminder |>
+  colnames()
+```
+
+<br>
+
+<br>
+
+## Exercise 1
+
+Which five countries had the largest population size in 2015 (the most recent year for which population sizes are included in this dataset), and how has the population sizes in those countries changes since 1960?
+
+```{r, echo=FALSE}
+
+# 5 countries with largest population size in 2015
+gapminder |> 
+  select(country, year, population) |> 
+  filter(year == "2015") |> 
+  arrange(-population) |> 
+  head() 
+
+# Results: China, India, United States, Indonesia, Brazil
+```
+
+```{r echo=FALSE}
+#| warning: false
+
+# how the population sizes in those countries have changed since 1960
+data_top5 <- gapminder |> 
+  select(country, year, population) |> 
+  filter(country %in% c("China", "India", "United States", "Indonesia", "Brazil"))
+
+# view data
+View(data_top5)
+
+#visualize in ggplot
+ggplot(data_top5) + 
+  geom_line(mapping = aes(x=year, y=population, color=country), lwd=1)
+
+# Results: population increasing in all 5, more steeply in China and India
+```
+
+<br>
+
+Rank the following countries in infant mortality rate in 2015: Turkey, Poland, South Korea, Russia, Vietnam, South Africa
+
+```{r, echo=FALSE}
+
+# rank infant mortality rate in 2015
+gapminder |> 
+  select(country, year, population, infant_mortality) |> 
+  filter(year == "2015") |> 
+  filter(country %in% c("Turkey", "Poland", "South Korea", "Russia", "Vietnam", "South Africa")) |> 
+  arrange(-infant_mortality)
+```
+
+<br>
+
+What is the general relationship between per-capita GDP and fertility rate?
+
+-   Negative relationship
+
+```{r echo=FALSE}
+#| warning: false
+
+# relationship between per-capita GDP and fertility rate
+gapminder |> 
+  select(country, year, population, gdp, fertility) |> 
+  filter(year=="2000") |> 
+  ggplot() +
+  geom_line(mapping = aes(x=gdp, y=fertility), lwd=1, color="forestgreen")
+```
+
+<br>
+
+If you break down the relationship between per-capita GDP and fertility rate by continent, which continent (or regions) stands out as an outlier?
+
+-   Europe — fertility stays about the same with increased gdp
+
+```{r echo=FALSE}
+#| warning: false
+
+# which continent is an outlier breaking this down by continent
+gapminder |> 
+  select(country, year, gdp, fertility, continent) |> 
+  filter(year=="2000") |> 
+  filter(continent %in% c("Africa", "Asia", "Europe")) |> 
+  ggplot() +
+  geom_line(mapping = aes(x=gdp, y=fertility, color=continent), lwd=1)
+```
+
+<br>
+
+There are roughly seven billion people in the world today. Which map shows where people live? (Each figure represents 1 billion people)
+
+-   A is the most accurate representation
+
+![](https://s3.eu-west-1.amazonaws.com/static.gapminder.org/GapminderMedia/wp-uploads/20170330195501/Results-for-the-Swedish-Public-on-the-Gapminder-Test-2017%E2%80%99-1024x244.jpg)
+
+```{r echo=FALSE}
+#| warning: false
+
+# finding the population for each continent and ranking them
+gapminder |> 
+  select(continent, population, country, year) |> 
+  filter(continent %in% c("Americas", "Europe", "Asia", "Africa")) |>
+  filter(year=="2015") |> 
+  group_by(continent) |> 
+  mutate(pop_by_continent = sum(population)) |> 
+  ggplot() +
+  geom_col(mapping = aes(x=continent, y=population, fill=continent))
+```
