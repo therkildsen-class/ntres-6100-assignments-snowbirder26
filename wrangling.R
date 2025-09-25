@@ -1,6 +1,6 @@
 # Hannah Pryor
 # In-class practice
-# 16, 18 Sept 2025
+# September 2025
 
 # Setup ------------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ coronavirus |>
 
 
 
-# vaccine data and mutate function ---------------------------------------------
+# vaccine data and mutate function
 
 # load and view new data
 vacc <- read.csv("https://raw.githubusercontent.com/RamiKrispin/coronavirus/main/csv/covid19_vaccine.csv")
@@ -108,4 +108,74 @@ vacc |>
   arrange(-percent_vaxxed) |> 
   head(5)
 
+# TUESDAY 9/23 IN-CLASS PRACTICE -----------------------------------------------
+
+# Summarizing
+
+coronavirus |> 
+  filter (type == "confirmed") |> 
+  group_by(country) |> 
+  summarize (total = sum(cases),
+             n=n()) |>  #observation count
+  arrange(-total)
+
+# review the lecture because working on genetics in class
+
+coronavirus |> 
+  filter(type=="death") |> 
+  group_by(date) |> 
+  summarize(total=sum(cases)) |> 
+  arrange(-total)
+
+ggbase <- 
+  coronavirus |> 
+  filter(type=="confirmed") |> 
+  group_by(date) |> 
+  summarize(total_cases=sum(cases)) |> 
+  ggplot(mapping = aes(x=date, y=total_cases)) +
+  geom_line()
+
+# now you saved the code above into the ggbase variable and can start with it!
+ggbase +
+  geom_line()
+
+# can adjust lines with col= and fill with fill=
+# do this inside geom feature
+# linetype= (Google line types, ex. dashed)
+
+# shape, size, alpha (transparency adjustment)
+
+ggbase +
+  geom_point(mapping=aes(size=total_cases, color=total_cases), # redundant
+             alpha=0.4) +
+  theme_minimal() +
+  theme(legend.position="none")+
+  labs(
+    x="Date",
+    y="Total Confirmed Cases",
+    title = str_c("Daily counts of new coronavirus cases ", max(coronavirus$date)),
+    subtitle = "Global sums"
+  )
+
+# create top_5_countries variable
+top_5_countries <- coronavirus |> 
+  filter(type == "confirmed") |> 
+  group_by(country) |> 
+  summarize(total=sum(cases)) |> 
+  arrange(-total) |> 
+  head(5) |> 
+  pull(country)
+  
+# create side-by-side graphs
+coronavirus |> 
+  filter(type == "confirmed", country %in% top_5_countries) |> 
+  group_by(date, country) |> 
+  summarize(total=sum(cases)) |> 
+  ggplot() +
+  geom_line(mapping = aes(x=date, y=total, color=country)) +
+  facet_wrap(~country)
+  
+  
+  
+# TURSDAY 9/25 IN-CLASS PRACTICE -----------------------------------------------
 
