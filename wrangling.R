@@ -1,6 +1,7 @@
 # Hannah Pryor
 # In-class practice
 # September 2025
+# if you need to do a new github access token, see lecture 2 on course website
 
 # Setup ------------------------------------------------------------------------
 
