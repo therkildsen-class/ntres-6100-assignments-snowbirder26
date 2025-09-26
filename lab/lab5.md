@@ -1,12 +1,9 @@
----
-title: "lab5"
-format: gfm
-editor: visual
----
+# lab5
+
 
 ### Load packages and read in data
 
-```{r, output=FALSE}
+``` r
 # Load required packages
 library(tidyverse)
 library(knitr)
@@ -15,15 +12,17 @@ library(knitr)
 titanic <- read_csv("https://raw.githubusercontent.com/nt246/NTRES-6100-data-science/master/datasets/Titanic.csv")
 ```
 
-And take a look at the dataset...
+And take a look at the dataset…
 
-```{r, echo=FALSE}
-# Let's look at the top 5 lines of the dataset
-head(titanic, n = 5) |>
-  kable()
-```
+| PassengerId | Survived | Pclass | Name | Sex | Age | SibSp | Parch | Ticket | Fare | Cabin | Embarked |
+|---:|---:|---:|:---|:---|---:|---:|---:|:---|---:|:---|:---|
+| 1 | 0 | 3 | Braund, Mr. Owen Harris | male | 22 | 1 | 0 | A/5 21171 | 7.2500 | NA | S |
+| 2 | 1 | 1 | Cumings, Mrs. John Bradley (Florence Briggs Thayer) | female | 38 | 1 | 0 | PC 17599 | 71.2833 | C85 | C |
+| 3 | 1 | 3 | Heikkinen, Miss. Laina | female | 26 | 0 | 0 | STON/O2. 3101282 | 7.9250 | NA | S |
+| 4 | 1 | 1 | Futrelle, Mrs. Jacques Heath (Lily May Peel) | female | 35 | 1 | 0 | 113803 | 53.1000 | C123 | S |
+| 5 | 0 | 3 | Allen, Mr. William Henry | male | 35 | 0 | 0 | 373450 | 8.0500 | NA | S |
 
-```{r, output=FALSE}
+``` r
 View(titanic)
 dim(titanic)
 colnames(titanic)
@@ -37,9 +36,9 @@ colnames(titanic)
 
 <br>
 
-### There were \~2224 people on board — how many do we have information for in this dataset?
+### There were ~2224 people on board — how many do we have information for in this dataset?
 
-```{r, output=FALSE}
+``` r
 titanic |> 
   dim()
 ```
@@ -48,9 +47,9 @@ We have data for 891 passengers
 
 <br>
 
-### How many survived and how many did not? 
+### How many survived and how many did not?
 
-```{r output=FALSE}
+``` r
 titanic |> 
   filter(Survived == 1) |> 
   dim() # 342 survivors
@@ -68,7 +67,7 @@ Non-survivors: 549
 
 ### What is the overall survival rate?
 
-```{r}
+``` r
 survivors <- titanic |> 
   filter(Survived==1) |> 
   nrow()
@@ -87,7 +86,7 @@ Survival rate is about 38.38%
 
 ### How many males and females?
 
-```{r, output=FALSE}
+``` r
 titanic |> 
   filter(Sex=="female") |> 
   nrow() # 314 female passengers
@@ -105,15 +104,10 @@ Male: 577
 
 ### Break it down by ticket class?
 
-```{r, echo=FALSE}
-titanic |> 
-  group_by(Sex) |> 
-  ggplot() + 
-  geom_bar(aes(x=Sex)) +
-  facet_wrap(~Pclass)
-```
+![](lab5_files/figure-commonmark/unnamed-chunk-8-1.png)
 
-More males than females in every class, but especially disproportionate in the class 3 group
+More males than females in every class, but especially disproportionate
+in the class 3 group
 
 <br>
 
@@ -121,14 +115,10 @@ More males than females in every class, but especially disproportionate in the c
 
 ### How many passengers of each sex survived? How many did not? What is the survival rate for each sex?
 
-```{r, echo=FALSE}
-titanic |> 
-  group_by(Survived) |> 
-  ggplot(aes(x=as.factor(Survived))) +
-  geom_bar() +
-  geom_text(stat='count', aes(label=..count..), vjust=-1)+
-  facet_wrap(~Sex)
-```
+    Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
+    ℹ Please use `after_stat(count)` instead.
+
+![](lab5_files/figure-commonmark/unnamed-chunk-9-1.png)
 
 Female: 233 survived, 81 did not
 
@@ -136,7 +126,7 @@ Male: 109 survived, 468 did not
 
 <br>
 
-```{r, output=FALSE}
+``` r
 male_survivors <- titanic |> 
   filter(Sex=="male") |> 
   filter(Survived==1) |> 
@@ -149,7 +139,7 @@ total_males <- titanic |>
 male_survival_rate <- male_survivors/total_males # 18.89% survival
 ```
 
-```{r, output=FALSE}
+``` r
 female_survivors <- titanic |> 
   filter(Sex=="female") |> 
   filter(Survived==1) |> 
@@ -172,7 +162,7 @@ Female survival rate is 74.2%
 
 ### For how many passengers do we have age information (including estimated age)? For how many is the age information missing? What is the age distribution for passengers whose age information is available?
 
-```{r}
+``` r
 ppl_w_age_data <- titanic |> 
   filter(Age>0) |> 
   nrow()
@@ -183,6 +173,7 @@ total_ppl <- titanic |>
 ppl_wo_age_data <- total_ppl-ppl_w_age_data
 ```
 
-We have age information for 714 passengers, and we do not have it for 177 passengers
+We have age information for 714 passengers, and we do not have it for
+177 passengers
 
 <br>
