@@ -1,0 +1,93 @@
+---
+title: "Lab 7 - Hannah Pryor"
+format: gfm
+editor: visual
+---
+
+<br>
+
+Load packages and data
+
+```{r, message=FALSE}
+
+# Load required packages
+library(tidyverse)
+library(knitr)
+library(nycflights13)
+
+flights |> head() |> kable()
+
+```
+
+<br>
+
+Question 1: Compute the average delay by destination, then join on the `airports` data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+
+```{r, message=FALSE, warning=FALSE}
+library(maps) #install.packages("maps")
+
+airports |>
+  semi_join(flights, c("faa" = "dest")) |>
+  ggplot(aes(lon, lat)) +
+    borders("state") +
+    geom_point() +
+    coord_quickmap()
+```
+
+<br>
+
+Use the `size` or `colour` of the points to display the average delay for each airport
+
+```{r, warning=FALSE, message=FALSE}
+# add a column with average delay to the flights dataframe and pull out onlu the required columns, also rename dest to faa to make merging easier
+flight_delays <- flights |> 
+  group_by(dest) |> 
+  mutate(avg_delay=mean(arr_delay, na.rm=T)) |> 
+  select(dest, arr_delay, avg_delay) |> 
+  rename(faa=dest)
+
+# create a combined table by joining the selected columns from flights with the airports dataset
+combined_table <-
+  left_join(airports, flight_delays)
+
+# create a plot colored by average delay using this combined table in ggplot
+combined_table |> 
+  semi_join(flights, c("faa" = "dest")) |>
+   ggplot(aes(lon, lat, color=avg_delay, na.rm=T)) +
+    borders("state") +
+    geom_point() +
+    coord_quickmap()
+```
+
+<br>
+
+Question 2: Is there a relationship between the age of a plane and its delays?
+
+```{r, warning=FALSE}
+view(planes)
+
+planes_flights <-
+  left_join(flights, planes, by=join_by(tailnum)) |> 
+  rename(flight_year=year.x, make_year=year.y) |> 
+  mutate(age=flight_year-make_year)
+
+planes_flights |> 
+  ggplot(aes(age, arr_delay)) +
+  geom_col()
+
+# the newest and oldest planes are very close to on-schedule, but the planes that are inbetween have a lot of variation in the arrival time/delays. This is an interesting pattern...
+```
+
+<br>
+
+Question 3: What weather conditions make it more likely to see a delay?
+
+```{r}
+View(weather)
+
+flights_weather <-
+  left_join(flights, weather)
+
+flights_weather |> 
+  ggplot(aes(
+```
