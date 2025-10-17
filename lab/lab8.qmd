@@ -1,0 +1,19 @@
+---
+title: "Lab 8"
+author: "Hannah Pryor"
+format: gfm
+---
+
+<br>
+
+Load tidyverse
+
+```{r, output=FALSE}
+library(tidyverse)
+```
+
+<br>
+
+There are two general approaches when generating outputs from for loops. The first approach is to define the output as a NULL object before the loop, and in each iteration, append an element to the output using functions such as `c()` and `bind_rows()`. The second approach is to pre-specify the type and length of the output before the loop, and fill in the output in each iteration. Design an experiment to systematically compare the computational efficiency between the two approaches:
+
+<br>
