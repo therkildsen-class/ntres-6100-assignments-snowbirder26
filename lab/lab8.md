@@ -3,10 +3,13 @@ Hannah Pryor
 
 <br>
 
-Load tidyverse
+Load packages
 
 ``` r
 library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(knitr)
 ```
 
 <br>
@@ -73,7 +76,7 @@ system.time(for (i in 1:length(x)){
 ```
 
        user  system elapsed 
-       0.00    0.00    0.02 
+       0.03    0.00    0.00 
 
 ``` r
 # for approach two:
@@ -83,7 +86,7 @@ system.time(for (i in 1:length(x)){
 ```
 
        user  system elapsed 
-       0.06    0.02    0.11 
+       0.00    0.00    0.01 
 
 Okay, I am seeing a more efficient user time for approach one, but lets
 add bigger numbers to test if this holds up…
@@ -94,31 +97,40 @@ still try the bigger numbers and see how that goes.
 <br>
 
 ``` r
+# ended up using the "possible solution" code to help me do this...
+
+n_iterations <- (1:5)*5000
+approach_1 <- vector("double", length(n_iterations))
+approach_2 <- vector("double", length(n_iterations))
+
 # for approach one:
-x <- 1:1000
-y <- 1001:2000
-z <- NULL
-system.time(for (i in 1:length(x)){
-  z <- c(z, x[i] + y[i])
-})
-```
+for(i in length(n_iterations)){ 
+  n <- n_iterations[i]
+  z <- NULL
+  approach_1[i] <- system.time(for (j in 1:n){
+  z <- c(z, 1)
+  })[3]
+}
 
-       user  system elapsed 
-       0.01    0.00    0.03 
-
-``` r
 # for approach two:
-x <- 1:1000
-y <- 1001:2000
-z <- vector(mode = "double", length=10)
-system.time(for (i in 1:length(x)){
-  z[i] <- x[i] + y[i]
-})
+for(i in length(n_iterations)){ 
+  n <- n_iterations[i]
+  z <- vector(mode = "double", length=n)
+  approach_2[i] <- system.time(for (j in 1:n){
+  z <- c(z, 1)
+  })[3]
+}
+
+# graphing these
+tibble(n_iterations, approach_1, approach_2) |>
+  pivot_longer(2:3, names_to = "approach", values_to = "runtime") |>
+  ggplot(aes(x=n_iterations, y=runtime, color=approach)) +
+  geom_line()
 ```
 
-       user  system elapsed 
-       0.01    0.00    0.00 
+![](lab8_files/figure-commonmark/unnamed-chunk-6-1.png)
 
-Still getting very similar numbers…
+Approach one is more effective, but you do not see this difference until
+~20000 iterations
 
 <br>

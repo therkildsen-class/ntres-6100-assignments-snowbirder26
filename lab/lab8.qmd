@@ -6,10 +6,13 @@ format: gfm
 
 <br>
 
-Load tidyverse
+Load packages
 
 ```{r, output=FALSE}
 library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(knitr)
 ```
 
 <br>
@@ -77,23 +80,37 @@ Wait, no, now it is giving me different answers every time! I think I'll still t
 <br>
 
 ```{r}
+# ended up using the "possible solution" code to help me do this...
+
+n_iterations <- (1:5)*5000
+approach_1 <- vector("double", length(n_iterations))
+approach_2 <- vector("double", length(n_iterations))
+
 # for approach one:
-x <- (1:1000)*10000000
-y <- (1001:2000)*1000000
-z <- NULL
-system.time(for (i in 1:length(x)){
-  z <- c(z, x[i] + y[i])
-})
+for(i in length(n_iterations)){ 
+  n <- n_iterations[i]
+  z <- NULL
+  approach_1[i] <- system.time(for (j in 1:n){
+  z <- c(z, 1)
+  })[3]
+}
 
 # for approach two:
-x <- (1:1000)*10000000
-y <- (1001:2000)*10000000
-z <- vector(mode = "double", length=10000000000)
-system.time(for (i in 1:length(x)){
-  z[i] <- x[i] + y[i]
-})
+for(i in length(n_iterations)){ 
+  n <- n_iterations[i]
+  z <- vector(mode = "double", length=n)
+  approach_2[i] <- system.time(for (j in 1:n){
+  z <- c(z, 1)
+  })[3]
+}
+
+# graphing these
+tibble(n_iterations, approach_1, approach_2) |>
+  pivot_longer(2:3, names_to = "approach", values_to = "runtime") |>
+  ggplot(aes(x=n_iterations, y=runtime, color=approach)) +
+  geom_line()
 ```
 
-Still getting very similar numbers...
+Approach one is more effective, but you do not see this difference until \~20000 iterations
 
 <br>
