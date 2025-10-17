@@ -114,5 +114,3 @@ tibble(n_iterations, approach_1, approach_2) |>
 Approach one is more effective, but you do not see this difference until \~20000 iterations
 
 <br>
-
-<br>
