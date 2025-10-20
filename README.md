@@ -17,7 +17,7 @@ Assignment#  |  Fully completed |  Partially completed  | Not completed |
 4  |  X  |    |    |  
 5  |  X  |    |    |  
 6  |    |    |  X  |  
-7  |    |    |    |  
+7  |  X  |    |    |  
 8  |    |    |    |  
 9  |    |    |    |  
 
