@@ -34,3 +34,7 @@ convert_pounds_to_grams(3.75)
 ## did an example of this with the for loop country example we were working on
 
 # review your turn section to specify file type for output in the function
+## add file type argument to function, then change the argument in ggsave to 
+## that file type value, have a "." between stat and file type in the ggsave
+
+# TOOK A PHOTO OF THE CODE EXAMPLE IN CLASS - ADD TO NOTES!
