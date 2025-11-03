@@ -19,7 +19,7 @@ Assignment#  |  Fully completed |  Partially completed  | Not completed |
 6  |    |    |  X  |  
 7  |  X  |    |    |  
 8  |    |    |  X  |  
-9  |    |    |    |  
+9  |    |  X  |    |  
 
 <br>
 
