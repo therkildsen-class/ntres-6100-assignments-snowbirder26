@@ -1,6 +1,6 @@
 ---
 title: "assignment_9"
-format: html
+format: gfm
 ---
 
 <br>
