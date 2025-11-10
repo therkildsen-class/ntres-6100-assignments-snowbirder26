@@ -1,0 +1,124 @@
+---
+title: "Lab exercise"
+author: "Hannah Pryor"
+date: "8/29/2025"
+editor: visual
+engine: knitr
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+<br>
+
+# Big Header
+
+##### Smaller Header
+
+###### Smallest Header
+
+Filler text. Also, I think the header number coordinates with size - Header 1 is the biggest and Header 6 is the smallest. This corresponds to the number of hashes in the source code. Maybe there is also a color difference? The space only shows up in the rendered document if I use the br thing
+
+<br>
+
+<br>
+
+## In-line code
+
+<br>
+
+This first part is where we include the in-line code
+
+```         
+There are `r nrow(cars)` observations in the cars dataset,  and `r ncol(cars)` variables.
+```
+
+<br>
+
+This second part is where we actually run the code - otherwise, it won't show up. You need to run it, and then the variables will show up in the in-line code sentence.
+
+```{r}
+#| label: In-line code practice
+nrow(cars)
+ncol(cars)
+```
+
+<br>
+
+<br>
+
+## Practice Image insertion
+
+<br>
+
+R markdown syntax goes in plain text not in code chunks - remember this!
+
+<br>
+
+Practice inserting an image - you can't have spaces in any part of the file path to do this, so name folders accordingly.
+
+<br>
+
+Not sure why, but it doesn't want me to use the full file path, just images/file name
+
+Might be a good idea to come back to the knitr::include_graphics() thing later because the image rendering is taking so long
+
+Anyway, here is the photo that finally rendered...
+
+![Yellow-rumped Warbler](images/audubons_warbler.jpg)
+
+<br>
+
+<center>I want to try to center this text...</center>
+
+[...and right align this text]{style="float:right"}
+
+<br>
+
+Yes, that worked!
+
+<br>
+
+## Code chunk options
+
+```{r}
+# label this code chunk
+#| label: code chunk practice one
+
+# random simple practice code
+var1 <- 10+2
+var2 <- 4+6
+var3 <- var1+var2
+var3
+```
+
+```{r, echo = FALSE}
+# label this code chunk
+#| label: another code chunk
+
+# more practice code
+var4 <- 11*2
+var4
+```
+
+```{r}
+# label this code chunk
+#| label: yet another code chunk haha
+
+#more code
+var5 <- var4-var3
+var5
+```
+
+<br>
+
+<br>
+
+# Exercise 2
+
+## Add table of contents
+
+See lab instructions for styling it, shows up when you make the screen wider
+
+<br>
